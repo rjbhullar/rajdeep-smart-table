@@ -41,6 +41,13 @@
   font-size: 0.9em;
 }
 
+/* Formula error display */
+.cell-error-display {
+  color: #ff4d4f;
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
 /* Editing state */
 .table-cell-editing {
   position: relative;
@@ -83,86 +90,15 @@
 .table-cell-content.cell-error-state {
   border: 1px solid #ff4d4f;
   background-color: #fff2f0;
+  color: #ff4d4f;
 }
 
 .table-cell-content.cell-error-state:hover {
   background-color: #fff2f0;
   border: 1px solid #ff4d4f;
+  color: #ff4d4f;
 }
 
-/* Error tooltip on hover */
-.table-cell-content.cell-error-state::after {
-  content: attr(data-error);
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #2d2d2d;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 0.85em;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-  z-index: 1000;
-  pointer-events: none;
-  margin-bottom: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Tooltip arrow */
-.table-cell-content.cell-error-state::before {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top-color: #2d2d2d;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-  z-index: 1001;
-  margin-bottom: 2px;
-}
-
-/* Show tooltip on hover */
-.table-cell-content.cell-error-state:hover::after,
-.table-cell-content.cell-error-state:hover::before {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Error tooltip as div element */
-.error-tooltip {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #2d2d2d;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 0.85em;
-  white-space: nowrap;
-  z-index: 1000;
-  margin-bottom: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  pointer-events: none;
-}
-
-/* Tooltip arrow */
-.error-tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top-color: #2d2d2d;
-}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

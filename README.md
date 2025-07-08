@@ -52,8 +52,9 @@ This project was built incrementally using AI assistance at each stage. Each fea
 5. **Documentation** - Document decisions and learnings
 
 ### AI Log Summary
-- **Features Built with AI**: Project setup,
-- **Prompts Used**: See `.ai-log/` folder for detailed prompts
+- **Features Built with AI**: Project setup, table structure, cell editing, formula engine with comprehensive testing
+
+- **Prompts Used**: See `.ai-log/` folder for detailed prompts and implementation decisions
 
 ## 📊 Time Tracking
 
@@ -62,7 +63,7 @@ This project was built incrementally using AI assistance at each stage. Each fea
 | Project Setup | 30 min | 40min | Vite setup, initial structure |
 | Table Structure | 45 min | 45 minutes | Basic table layout and styling |
 | Cell Editing | 60 min | 55 min | Inline editing functionality |
-| Formula Engine | 90 min | [PLACEHOLDER] | Excel-style calculations |
+| Formula Engine | 90 min | 50 min | Excel-style calculations + 47 comprehensive tests |
 | Dynamic Management | 75 min | [PLACEHOLDER] | Add/remove rows/columns |
 | Testing & Polish | 60 min | [PLACEHOLDER] | Unit tests and refinements |
 | Documentation | 30 min | [PLACEHOLDER] | README and deployment |
@@ -70,9 +71,16 @@ This project was built incrementally using AI assistance at each stage. Each fea
 
 ## 🧪 Testing Strategy
 
-### Unit Tests
-- Formula calculation engine
-- Cell reference parsing
+### Unit Tests ✅ IMPLEMENTED
+- **Formula calculation engine** - 47 comprehensive tests covering all functionality
+- **Cell reference parsing** - Complete validation and error handling
+- **Circular reference detection** - Multi-level circular reference prevention
+- **Error handling** - All edge cases and invalid inputs tested
+- **Mathematical operations** - Operator precedence, parentheses, division by zero
+- **Integration scenarios** - Real-world business calculation examples
+
+**Test Command:** `npm test`  
+**Current Status:** ✅ 47/47 tests passing
 - Data validation
 - Error handling
 

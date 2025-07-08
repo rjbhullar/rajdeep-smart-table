@@ -3,11 +3,14 @@ import './TableCell.css';
 
 interface TableCellProps {
   value: string | number;
+  displayValue: string | number;
   columnType: 'text' | 'number';
+  cellId: string;
+  isFormula: boolean;
   onValueChange: (newValue: string | number) => void;
 }
 
-const TableCell: React.FC<TableCellProps> = ({ value, columnType, onValueChange }) => {
+const TableCell: React.FC<TableCellProps> = ({ value, displayValue, columnType, isFormula, onValueChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState('');
   const [hasError, setHasError] = useState(false);
@@ -38,6 +41,16 @@ const TableCell: React.FC<TableCellProps> = ({ value, columnType, onValueChange 
   const validateAndSave = () => {
     const trimmedValue = editValue.trim();
     
+    // Handle formulas - they can be entered in any column type
+    if (trimmedValue.startsWith('=')) {
+      // Save the formula as-is, validation will happen in useFormula hook
+      onValueChange(trimmedValue);
+      setHasError(false);
+      setIsEditing(false);
+      return;
+    }
+    
+    // Handle regular values based on column type
     if (columnType === 'number') {
       if (trimmedValue === '') {
         // Allow empty values
@@ -108,13 +121,50 @@ const TableCell: React.FC<TableCellProps> = ({ value, columnType, onValueChange 
     );
   }
 
+  // Determine what to show in display mode
+  const getDisplayContent = () => {
+    if (!displayValue && displayValue !== 0) {
+      return <span className="cell-empty">Click to edit</span>;
+    }
+    
+    // Show error state if displayValue contains error
+    if (typeof displayValue === 'string' && displayValue.startsWith('#ERROR:')) {
+      return <span className="cell-error-display">{displayValue}</span>;
+    }
+    
+    return displayValue;
+  };
+
+  // Determine CSS classes and tooltip based on display value
+  const getCellClasses = () => {
+    let classes = `table-cell-content ${columnType === 'number' ? 'cell-number' : 'cell-text'}`;
+    
+    if (typeof displayValue === 'string' && displayValue.startsWith('#ERROR:')) {
+      classes += ' cell-error-state';
+    }
+    
+    return classes;
+  };
+  
+  const getTooltip = () => {
+    if (typeof displayValue === 'string' && displayValue.startsWith('#ERROR:')) {
+      return displayValue; // Show full error message
+    }
+    
+    if (isFormula) {
+      return `Formula: ${value}`;
+    }
+    
+    return "Click to edit";
+  };
+
   return (
     <div 
-      className={`table-cell-content ${columnType === 'number' ? 'cell-number' : 'cell-text'}`}
+      className={getCellClasses()}
       onClick={handleClick}
-      title="Click to edit"
+      title={getTooltip()}
     >
-      {value || <span className="cell-empty">Click to edit</span>}
+      {getDisplayContent()}
     </div>
   );
 };

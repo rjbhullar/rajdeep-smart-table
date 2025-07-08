@@ -4,6 +4,7 @@ import type { TableData } from '../types/index';
 import FilterIcon from '../assets/filter-icon.svg';
 import SortIcon from '../assets/sort-icon.svg';
 import TableCell from './TableCell';
+import { useFormula } from '../hooks/useFormula';
 
 const SmartTable: React.FC = () => {
   // State management for table data
@@ -23,18 +24,27 @@ const SmartTable: React.FC = () => {
     rowCount: 3
   });
 
+  // Initialize formula hook
+  const { isFormula, resolveCellValue } = useFormula(tableData);
+
   // Update cell value in the Excel-style data structure
   const updateCellValue = (columnId: string, rowIndex: number, newValue: string | number) => {
-    setTableData(prevData => ({
-      ...prevData,
-      data: {
-        ...prevData.data,
-        [columnId]: {
-          ...prevData.data[columnId],
-          [rowIndex]: newValue
+    setTableData(prevData => {
+      const newData = {
+        ...prevData,
+        data: {
+          ...prevData.data,
+          [columnId]: {
+            ...prevData.data[columnId],
+            [rowIndex]: newValue
+          }
         }
-      }
-    }));
+      };
+      
+      // For formulas, we need to trigger recalculation of dependent cells
+      // This will be handled by the useFormula hook automatically
+      return newData;
+    });
   };
 
   return (
@@ -59,15 +69,24 @@ const SmartTable: React.FC = () => {
         <tbody>
           {Array.from({ length: tableData.rowCount }, (_, rowIndex) => (
             <tr key={rowIndex + 1} className="table-row">
-              {tableData.columns.map((column) => (
-                <td key={`${column.id}-${rowIndex + 1}`} className="table-cell">
-                  <TableCell
-                    value={tableData.data[column.id][rowIndex + 1] || ''}
-                    columnType={column.type}
-                    onValueChange={(newValue) => updateCellValue(column.id, rowIndex + 1, newValue)}
-                  />
-                </td>
-              ))}
+              {tableData.columns.map((column) => {
+                const cellId = `${column.id}${rowIndex + 1}`;
+                const rawValue = tableData.data[column.id][rowIndex + 1] || '';
+                const displayValue = resolveCellValue(rawValue, cellId);
+                
+                return (
+                  <td key={cellId} className="table-cell">
+                    <TableCell
+                      value={rawValue}
+                      displayValue={displayValue}
+                      columnType={column.type}
+                      cellId={cellId}
+                      isFormula={isFormula(rawValue)}
+                      onValueChange={(newValue) => updateCellValue(column.id, rowIndex + 1, newValue)}
+                    />
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
