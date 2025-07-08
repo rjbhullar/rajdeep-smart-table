@@ -1,10 +1,11 @@
 import './App.css';
+import SmartTable from './components/SmartTable';
 
 function App() {
   return (
     <div className="app">
       <h1>Smart Table</h1>
-      <p>Ready for development...</p>
+      <SmartTable />
     </div>
   );
 }
