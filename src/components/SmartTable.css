@@ -5,7 +5,38 @@
   margin: 0 auto;
   padding: 20px;
   padding-bottom: 60px; /* Extra space for error messages */
+  padding-right: 60px; /* Extra space for add column button */
+  padding-left: 40px; /* Extra space for delete row buttons */
+  padding-top: 40px; /* Extra space for delete column buttons */
   background-color: #fff;
+  position: relative; /* For absolute positioned buttons */
+}
+
+/* Table Controls - Always on top */
+.table-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.table-control-btn {
+  background: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 100px;
+}
+
+.table-control-btn:hover {
+  background: #40a9ff;
+  transform: translateY(-1px);
 }
 
 .smart-table {
@@ -19,6 +50,243 @@
   border: 1px solid #e8e8e8;
   border-radius: 8px;
   overflow: hidden;
+}
+
+
+/* Header Content Layout */
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.header-label {
+  flex-grow: 1;
+}
+
+/* Edit Column Button - inline in header */
+.edit-column-btn-inline {
+  background: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  cursor: pointer;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+  margin-left: 4px;
+  flex-shrink: 0;
+  pointer-events: none; /* Prevent touch events when hidden */
+}
+
+.table-header:hover .edit-column-btn-inline {
+  opacity: 1;
+  pointer-events: auto; /* Allow clicks when visible */
+}
+
+.edit-column-btn-inline:hover {
+  background: #40a9ff;
+  transform: scale(1.1);
+}
+
+/* Show edit buttons on touch devices when column is focused/active */
+@media (hover: none) and (pointer: coarse) {
+  .edit-column-btn-inline {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .table-header.mobile-active .edit-column-btn-inline {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Delete Column Button - inline in header */
+.delete-column-btn-inline {
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  cursor: pointer;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+  margin-left: 4px;
+  flex-shrink: 0;
+  pointer-events: none; /* Prevent touch events when hidden */
+}
+
+.table-header:hover .delete-column-btn-inline {
+  opacity: 1;
+  pointer-events: auto; /* Allow clicks when visible */
+}
+
+.delete-column-btn-inline:hover {
+  background: #ff7875;
+  transform: scale(1.1);
+}
+
+/* Show delete buttons on touch devices when column is focused/active */
+@media (hover: none) and (pointer: coarse) {
+  .delete-column-btn-inline {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .table-header.mobile-active .delete-column-btn-inline {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Header Edit Mode */
+.header-edit-mode {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.header-label-input {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  background: white;
+  outline: none;
+}
+
+.header-label-input:focus {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.save-column-btn,
+.cancel-column-btn {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.save-column-btn {
+  background: #52c41a;
+  color: white;
+}
+
+.save-column-btn:hover {
+  background: #73d13d;
+}
+
+.cancel-column-btn {
+  background: #ff4d4f;
+  color: white;
+}
+
+.cancel-column-btn:hover {
+  background: #ff7875;
+}
+
+/* Table with controls layout */
+.table-with-controls {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Add Column Button - External to table, vertically centered */
+.add-column-btn-external {
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+  z-index: 10;
+}
+
+.add-column-btn-external:hover {
+  background: #40a9ff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+
+/* Header Pipe Separators */
+.header-separator {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #d0d0d0;
+  font-size: 20px;
+  font-weight: 100;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Header Icons */
+.header-icon {
+  width: 12px;
+  height: 12px;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  margin-left: 8px;
+}
+
+.table-header:hover .header-icon {
+  opacity: 1;
+}
+
+/* Table Cell Styling */
+.table-cell {
+  padding: 0;
+  border-bottom: 1px solid #f0f0f0;
+  /* NO vertical borders in data rows - only horizontal separators */
+  vertical-align: middle;
+  background-color: #fff;
+  transition: background-color 0.3s;
+  position: relative; /* For delete button positioning */
+}
+
+/* Table Row Styling */
+.table-row {
+  transition: background-color 0.3s;
+  position: relative; /* For absolute positioned delete button */
 }
 
 /* Table Header Styling */
@@ -38,50 +306,6 @@
   background-color: #f0f0f0;
 }
 
-/* Header Pipe Separators */
-.header-separator {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #d0d0d0;
-  font-size: 20px;
-  font-weight: 100;
-  line-height: 1;
-  user-select: none;
-}
-
-/* Header Icons */
-.header-icon {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 12px;
-  height: 12px;
-  opacity: 0.6;
-  transition: opacity 0.3s;
-}
-
-.table-header:hover .header-icon {
-  opacity: 1;
-}
-
-/* Table Cell Styling */
-.table-cell {
-  padding: 0;
-  border-bottom: 1px solid #f0f0f0;
-  /* NO vertical borders in data rows - only horizontal separators */
-  vertical-align: middle;
-  background-color: #fff;
-  transition: background-color 0.3s;
-}
-
-/* Table Row Styling */
-.table-row {
-  transition: background-color 0.3s;
-}
-
 .table-row:hover {
   background-color: #fafafa; /* Same shade as header */
 }
@@ -94,21 +318,151 @@
   border-bottom: none;
 }
 
-/* Responsive Design */
+/* Row Number Column */
+.row-number-header {
+  background-color: #fafafa;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 16px 12px;
+  text-align: center;
+  font-weight: 500;
+  color: #262626;
+  width: 50px;
+  min-width: 50px;
+  font-size: 12px;
+  border-right: 1px solid #f0f0f0;
+}
+
+.row-number-cell {
+  background-color: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  width: 50px;
+  min-width: 50px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.row-number {
+  display: inline-block;
+  font-size: 12px;
+  color: #8c8c8c;
+  font-weight: 500;
+  padding: 16px 8px;
+  transition: opacity 0.2s;
+}
+
+/* Delete Row Button - shows on row hover */
+.delete-row-btn-hover {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+  z-index: 10;
+  font-weight: bold;
+}
+
+.table-row:hover .row-number {
+  opacity: 0;
+}
+
+.table-row:hover .delete-row-btn-hover {
+  opacity: 1;
+}
+
+.delete-row-btn-hover:hover {
+  background: #ff7875;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.table-row:hover .row-number-cell {
+  background-color: #fff2f0;
+}
+
+/* Add Row Controls - Clean design */
+.add-row-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.add-row-btn {
+  background: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.add-row-btn:hover {
+  background: #40a9ff;
+  transform: scale(1.1);
+}
+
+/* Enhanced Responsive Design */
 @media (max-width: 768px) {
   .smart-table-container {
-    padding: 10px;
+    padding: 16px;
     overflow-x: auto;
   }
   
   .smart-table {
-    min-width: 600px;
-    font-size: 13px;
+    min-width: 100%;
+    font-size: 14px;
+    width: 100%;
   }
   
   .table-header,
   .table-cell {
     padding: 12px 16px;
+    min-width: 100px; /* Ensure minimum column width */
+  }
+  
+  .row-number-header,
+  .row-number-cell {
+    min-width: 40px;
+    width: 40px;
+    padding: 12px 8px;
+  }
+  
+  /* Make buttons larger and more touch-friendly on mobile */
+  .edit-column-btn-inline,
+  .delete-column-btn-inline {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+  
+  .delete-row-btn-hover {
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
   }
 }
 

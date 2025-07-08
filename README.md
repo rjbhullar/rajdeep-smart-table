@@ -64,7 +64,7 @@ This project was built incrementally using AI assistance at each stage. Each fea
 | Table Structure | 45 min | 45 minutes | Basic table layout and styling |
 | Cell Editing | 60 min | 55 min | Inline editing functionality |
 | Formula Engine | 90 min | 50 min | Excel-style calculations + 47 comprehensive tests |
-| Dynamic Management | 75 min | [PLACEHOLDER] | Add/remove rows/columns |
+| Dynamic Management | 75 min | 110 min | Add/remove rows/columns |
 | Testing & Polish | 60 min | [PLACEHOLDER] | Unit tests and refinements |
 | Documentation | 30 min | [PLACEHOLDER] | README and deployment |
 | **Total** | **≤ 6 hours** | **[PLACEHOLDER]**
