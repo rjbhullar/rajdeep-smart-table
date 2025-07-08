@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SmartTable.css';
 import type { TableData } from '../types/index';
 import FilterIcon from '../assets/filter-icon.svg';
 import SortIcon from '../assets/sort-icon.svg';
+import TableCell from './TableCell';
 
 const SmartTable: React.FC = () => {
-  const tableData: TableData = {
+  // State management for table data
+  const [tableData, setTableData] = useState<TableData>({
     data: {
       A: { 1: 'John Brown', 2: 'Jim Green', 3: 'Joe Black' },
       B: { 1: 32, 2: 42, 3: 32 },
@@ -19,6 +21,20 @@ const SmartTable: React.FC = () => {
       { id: 'D', label: 'Salary', type: 'number' }
     ],
     rowCount: 3
+  });
+
+  // Update cell value in the Excel-style data structure
+  const updateCellValue = (columnId: string, rowIndex: number, newValue: string | number) => {
+    setTableData(prevData => ({
+      ...prevData,
+      data: {
+        ...prevData.data,
+        [columnId]: {
+          ...prevData.data[columnId],
+          [rowIndex]: newValue
+        }
+      }
+    }));
   };
 
   return (
@@ -45,7 +61,11 @@ const SmartTable: React.FC = () => {
             <tr key={rowIndex + 1} className="table-row">
               {tableData.columns.map((column) => (
                 <td key={`${column.id}-${rowIndex + 1}`} className="table-cell">
-                  {tableData.data[column.id][rowIndex + 1]}
+                  <TableCell
+                    value={tableData.data[column.id][rowIndex + 1] || ''}
+                    columnType={column.type}
+                    onValueChange={(newValue) => updateCellValue(column.id, rowIndex + 1, newValue)}
+                  />
                 </td>
               ))}
             </tr>

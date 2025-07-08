@@ -4,6 +4,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  padding-bottom: 60px; /* Extra space for error messages */
   background-color: #fff;
 }
 
@@ -68,7 +69,7 @@
 
 /* Table Cell Styling */
 .table-cell {
-  padding: 16px 20px;
+  padding: 0;
   border-bottom: 1px solid #f0f0f0;
   /* NO vertical borders in data rows - only horizontal separators */
   vertical-align: middle;

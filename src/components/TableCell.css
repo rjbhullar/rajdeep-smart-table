@@ -1,0 +1,178 @@
+/* Table Cell Styling */
+.table-cell-content {
+  width: 100%;
+  height: 100%;
+  min-height: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  position: relative;
+  /* Reserve space for hover border to prevent layout shift */
+  border: 1px solid transparent;
+  /* Match header padding exactly for alignment */
+  padding: 16px 20px;
+  box-sizing: border-box;
+}
+
+.table-cell-content:hover {
+  background-color: #f0f8ff;
+  box-shadow: inset 0 0 0 1px #d1d5db;
+}
+
+.table-cell-content:focus {
+  outline: 2px solid #1890ff;
+  outline-offset: -2px;
+}
+
+/* Cell content alignment */
+.cell-text {
+  text-align: left;
+}
+
+.cell-number {
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Empty cell placeholder */
+.cell-empty {
+  color: #9ca3af;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+/* Editing state */
+.table-cell-editing {
+  position: relative;
+  width: 100%;
+}
+
+.cell-input {
+  width: 100%;
+  height: 100%;
+  min-height: 20px;
+  border: 1px solid #1890ff;
+  border-radius: 4px;
+  padding: 16px 20px;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.cell-input:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.2);
+}
+
+.cell-input-error {
+  border-color: #ff4d4f;
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+}
+
+.cell-input-error:focus {
+  border-color: #ff4d4f;
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.3);
+}
+
+/* Error state styling */
+.table-cell-content.cell-error-state {
+  border: 1px solid #ff4d4f;
+  background-color: #fff2f0;
+}
+
+.table-cell-content.cell-error-state:hover {
+  background-color: #fff2f0;
+  border: 1px solid #ff4d4f;
+}
+
+/* Error tooltip on hover */
+.table-cell-content.cell-error-state::after {
+  content: attr(data-error);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2d2d2d;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85em;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 1000;
+  pointer-events: none;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Tooltip arrow */
+.table-cell-content.cell-error-state::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #2d2d2d;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 1001;
+  margin-bottom: 2px;
+}
+
+/* Show tooltip on hover */
+.table-cell-content.cell-error-state:hover::after,
+.table-cell-content.cell-error-state:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Error tooltip as div element */
+.error-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2d2d2d;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85em;
+  white-space: nowrap;
+  z-index: 1000;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+/* Tooltip arrow */
+.error-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #2d2d2d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cell-input {
+    min-height: 28px;
+    padding: 2px 6px;
+  }
+  
+  .cell-error {
+    font-size: 0.8em;
+    padding: 2px 6px;
+  }
+}

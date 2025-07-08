@@ -61,7 +61,7 @@ This project was built incrementally using AI assistance at each stage. Each fea
 |-------|-----------|--------|-------|
 | Project Setup | 30 min | 40min | Vite setup, initial structure |
 | Table Structure | 45 min | 45 minutes | Basic table layout and styling |
-| Cell Editing | 60 min | [PLACEHOLDER] | Inline editing functionality |
+| Cell Editing | 60 min | 55 min | Inline editing functionality |
 | Formula Engine | 90 min | [PLACEHOLDER] | Excel-style calculations |
 | Dynamic Management | 75 min | [PLACEHOLDER] | Add/remove rows/columns |
 | Testing & Polish | 60 min | [PLACEHOLDER] | Unit tests and refinements |
