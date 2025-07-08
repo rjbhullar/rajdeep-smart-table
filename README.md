@@ -65,9 +65,9 @@ This project was built incrementally using AI assistance at each stage. Each fea
 | Cell Editing | 60 min | 55 min | Inline editing functionality |
 | Formula Engine | 90 min | 50 min | Excel-style calculations + 47 comprehensive tests |
 | Dynamic Management | 75 min | 110 min | Add/remove rows/columns |
-| Testing & Polish | 60 min | [PLACEHOLDER] | Unit tests and refinements |
-| Documentation | 30 min | [PLACEHOLDER] | README and deployment |
-| **Total** | **≤ 6 hours** | **[PLACEHOLDER]**
+| Testing & Polish | 60 min | 30 min | Unit tests and refinements |
+| deployment | 30 min | 5 min | deployment |
+| **Total** | **≤ 6 hours** | 5.5 hours
 
 ## 🧪 Testing Strategy
 
@@ -115,7 +115,7 @@ npm run preview
 
 ## 🌐 Live Demo
 
-**Production URL**: [PLACEHOLDER - will add after deployment]
+**Production URL**: https://rajdeep-smart-table.vercel.app/
 
 ## 📁 Project Structure
 
@@ -153,5 +153,5 @@ This project follows a clean, incremental development approach:
 ---
 
 **Developer**: Rajdeep Bhullar  
-**Development Time**: [PLACEHOLDER] hours   
+**Development Time**: 5.5 hours   
 **Deployment**: Vercel  
